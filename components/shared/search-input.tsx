@@ -30,9 +30,15 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
         setFocused(false)
     })
 
-    useDebounce(() => {
-        Api.products.search(searchQuery).then(items => setProducts(items))
-    }, 250, [searchQuery])
+    useDebounce(
+        async () => {
+            try {
+                const res = await Api.products.search(searchQuery)
+                setProducts(res)
+            } catch (error) {
+                console.log(error)
+            }
+        }, 250, [searchQuery])
 
 
 
