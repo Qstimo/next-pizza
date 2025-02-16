@@ -16,13 +16,10 @@ export default function HomeLayout({
 
 }>) {
   return (
-    <html lang="en">
       <main className="min-h-screen">
         <Header />
         {children}
         {modal}
       </main>
-
-    </html>
   );
 }

@@ -1,5 +1,5 @@
-export {Categories} from './categories';
-export {Title} from './title';
+export { Categories } from './categories';
+export { Title } from './title';
 export { Header } from './header';
 export { Container } from './container';
 export { SortPopup } from './sort-popup';
@@ -9,6 +9,8 @@ export { FilterCheckbox } from './filter-checkbox';
 export { ProductsGroupList } from './products-group-list';
 export { ProductCard } from './product-card';
 export { SearchInput } from './search-input';
-
+export { ChooseProductModal } from './modal/choose-product-modal'
+export { ChooseProductForm } from './choose-product-form'
+export { ChoosePizzaForm } from './choose-pizza-form'
 
 
