@@ -19,15 +19,16 @@ export const ChooseProductModal: React.FC<IProps> = ({ product }) => {
     const router = useRouter()
     const isPizzaForm = Boolean(product.items[0].pizzaType)
 
+
     return (
         <Dialog open={!!product} onOpenChange={() => router.back()}>
             <DialogContent className='p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden'>
                 {isPizzaForm
                     ? <ChoosePizzaForm
                         imageUrl={product.imageUrl}
-                        items={product.categoryId}
+                        items={product.items}
                         name={product.name}
-                        ingredients={product.createdAt} />
+                        ingredients={product.ingridients} />
 
                     : <ChooseProductForm
                         imageUrl={product.imageUrl}
