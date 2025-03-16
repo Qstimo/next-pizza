@@ -1,2 +1,6 @@
 export {calcTotalPizzaPrice} from './calc-total-pizza-price'
 export {getAviablePizzaSizes} from './get-aviable-pizza-sizes'
+export {getCartItemDetails} from './get-cart-item-details'
+export {calcCartItemTotalAmount} from './calc-cart-item-total-amount'
+export {getCartDetails} from './get-cart-details'
+export {updateCartUserAmount} from './update-cart-total-amount'

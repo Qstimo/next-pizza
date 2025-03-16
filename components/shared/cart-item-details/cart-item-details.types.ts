@@ -6,6 +6,6 @@ export interface CartItemProps {
   name: string;
   price: number;
   quantity: number;
-  details: string[]
+  details: string
   className?: string;
 }

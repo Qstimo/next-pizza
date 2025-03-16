@@ -95,7 +95,7 @@ model Cart {
     token       String
     totalAmount Int    @default(0)
 
-    cartItem CartItem[]
+    items CartItem[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
