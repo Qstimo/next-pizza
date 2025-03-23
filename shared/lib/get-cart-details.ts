@@ -9,7 +9,7 @@ export interface ICartStateItem {
   name: string
   imageUrl: string
   price: number
-  ingredients: Array<{ name: string, price: number }>
+  ingridients: Array<{ name: string, price: number }>
   pizzaSize?: number | null
   pizzaType?: number | null
 }
@@ -29,13 +29,12 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
     price: calcCartItemTotalAmount(item),
     pizzaSize: item.productItem.size,
     pizzaType: item.productItem.pizzaType,
-    ingredients: item.ingredients?.map((ingredient)=>({
+    ingridients: item.ingridients?.map((ingredient)=>({
       name:ingredient.name,
       price: ingredient.price
     })) || []
   }))
 
-console.log(items, 'ite,s', data)
   return {
     totalAmount: data.totalAmount,
     items,

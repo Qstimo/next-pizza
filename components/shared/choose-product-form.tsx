@@ -9,6 +9,8 @@ interface Props {
     name: string;
     className?: string;
     onClickAdd?: VoidFunction;
+    price: number
+    loading: boolean
 }
 
 export const ChooseProductForm: React.FC<Props> = ({
@@ -16,9 +18,9 @@ export const ChooseProductForm: React.FC<Props> = ({
     imageUrl,
     onClickAdd,
     className,
+    price,
+    loading
 }) => {
-    const totalPrice = 350
-    const textDetaills = '245346646'
 
     return (
         <div className={cn(className, 'flex flex-1')}>
@@ -27,11 +29,13 @@ export const ChooseProductForm: React.FC<Props> = ({
             <div className="w-[490px] bg-[#FCFCFC] p-7">
                 <Title text={name} size="md" className="font-extrabold mb-1" />
 
-                <p className="text-gray-400">{textDetaills}</p>
 
                 <Button
-                    className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
-                    Добавить в корзину за {totalPrice} ₽
+                    className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
+                    onClick={() => onClickAdd?.()}
+                    loading={loading}
+                >
+                    Добавить в корзину за {price} ₽
                 </Button>
 
 

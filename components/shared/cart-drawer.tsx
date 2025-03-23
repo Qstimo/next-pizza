@@ -54,7 +54,7 @@ export const CartDrawer: FC<PropsWithChildren<Props>> = ({ className, children }
                             onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
                             onClickRemove={() => removeCartItem(item.id)}
                             details={item.pizzaSize
-                                ? getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize,)
+                                ? getCartItemDetails(item.ingridients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize,)
                                 : ''} />
                     </div>)}
                 </div>
