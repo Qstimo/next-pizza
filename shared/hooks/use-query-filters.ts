@@ -2,11 +2,12 @@ import { useEffect } from "react"
 import { Filters } from "./use-filters"
 import QueryString from "qs"
 import { useRouter } from "next/navigation"
+import { useDeepCompareEffect } from "react-use"
 
 export const useQueryFilters =(filters:Filters)=>{
     const router = useRouter()
 
-    useEffect(() => {
+    useDeepCompareEffect(() => {
         const params = {
             ...filters.prices,
             pizzaTypes: Array.from(filters.pizzaTypes),

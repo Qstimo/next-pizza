@@ -12,8 +12,13 @@ export { SearchInput } from './search-input';
 export { ChooseProductModal } from './modal/choose-product-modal'
 export { ChooseProductForm } from './choose-product-form'
 export { ChoosePizzaForm } from './choose-pizza-form'
-export {IngredientItem} from './ingredient'
-export {CartButton} from './cart-button'
-export {CartDrawer} from './cart-drawer'
+export { IngredientItem } from './ingredient'
+export { CartButton } from './cart-button'
+export { CartDrawer } from './cart-drawer'
+export { WhiteBlock } from './white-block'
+export { CartSidebar } from './cart-sidebar'
+export { CartSidebarDetails } from './cart-sidebar-details'
+export { CheckoutItem } from './checkout-item'
+
 
 
