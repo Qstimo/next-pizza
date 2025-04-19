@@ -19,6 +19,8 @@ export { WhiteBlock } from './white-block'
 export { CartSidebar } from './cart-sidebar'
 export { CartSidebarDetails } from './cart-sidebar-details'
 export { CheckoutItem } from './checkout-item'
+export { CheckoutItemSkeleton } from './skeletons/cart-item-skeleton'
+export { FormInput } from './form-components/form-input'
 
 
 

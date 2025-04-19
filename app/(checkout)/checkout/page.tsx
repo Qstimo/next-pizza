@@ -1,51 +1,79 @@
-import { CartSidebar, CheckoutItem, Container, Title, WhiteBlock } from "@/components/shared";
-import { Input, Textarea } from "@/components/ui";
+'use client'
 
+import { CartSidebar, CheckoutItem, Container, Title } from "@/components/shared";
+
+import { useCart } from "@/shared/hooks";
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { CheckoutCart } from "@/components/shared/checkout/checkout-cart";
+import { CheckoutAddressForm, CheckoutPersonalForm } from "@/components/shared/checkout";
+import { checkoutFormSchema, TCheckoutFormValues } from "@/components/shared/schemas/checkout-form-schema";
+
+
+const VAT = 15
+const DELIVERY_PRICE = 250
 export default function CheckoutPage() {
+    const {
+        totalAmount,
+        items,
+        updateItemQuantity,
+        removeCartItem,
+    } = useCart()
+
+
+    const form = useForm<TCheckoutFormValues>({
+        resolver: zodResolver(checkoutFormSchema),
+        defaultValues: {
+            email: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            address: '',
+            comment: '',
+
+        }
+    })
+
+
+    const vatPrice = (totalAmount * VAT) / 100
+    const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice
+
+    const onSubmit:SubmitHandler<TCheckoutFormValues> = (data)=>{
+
+    }
+
     return <Container className="mt-10">
         <Title text='Оформление заказа' className="font-extrabold mb-8" />
 
-        <div className="flex gap-10">
-            <div className="flex flex-col gap-10 flex-1 mb-20">
-                <WhiteBlock title="1. Корзина">
-                    <div className="flex col gap-5">
+        <FormProvider {...form}>
 
-                        {/* <CheckoutItem /> */}
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="flex gap-10">
+                    <div className="flex flex-col gap-10 flex-1 mb-20">
+                        <CheckoutCart
+                            items={items}
+                            updateItemQuantity={updateItemQuantity}
+                            removeCartItem={removeCartItem}
+                        />
+
+                        <CheckoutPersonalForm />
+
+                        <CheckoutAddressForm />
+
+
                     </div>
 
-                </WhiteBlock>
-
-                <WhiteBlock title="2. Персональные данные ">
-                    <div className="grid grid-cols-2 gap-5">
-                        <Input name="firstName" className="text-base" placeholder="Имя" />
-                        <Input name="lastName" className="text-base" placeholder="Фамилия" />
-                        <Input name="email" className="text-base" placeholder="E-Mail" />
-                        <Input name="phone" className="text-base" placeholder="Телефон" />
-                    </div>
-                </WhiteBlock>
-
-                <WhiteBlock title="3. Адресс доставки ">
-                    <div className="flex flex-col gap-5">
-                        <Input name="firstName" className="text-base" placeholder="Имя" />
-
-                        <Textarea
-                            className="text-base"
-                            placeholder="Комментарий к заказу"
-                            rows={5}
+                    <div className="w-[450px]">
+                        <CartSidebar
+                            totalAmount={totalAmount}
+                            vatPrice={vatPrice}
+                            totalPrice={totalPrice}
+                            deliveryPrice={DELIVERY_PRICE}
+                            submitting={false}
                         />
                     </div>
-                </WhiteBlock>
-            </div>
-
-            <div className="w-[450px]">
-                <CartSidebar
-                    totalAmount={4}
-                    vatPrice={4}
-                    totalPrice={7000}
-                    deliveryPrice={6666}
-                    submitting={false}
-                />
-            </div>
-        </div>
-    </Container>
+                </div>
+            </form>
+        </FormProvider>
+    </Container >
 }

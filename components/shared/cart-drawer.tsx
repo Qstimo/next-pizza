@@ -1,41 +1,37 @@
 'use client'
 
-import { FC, PropsWithChildren, useEffect } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import Link from 'next/link';
 import { Button } from '../ui';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { CartDrawerItem } from './cart-drawer-item';
-import { useCartStore } from '@/shared/store';
-import { getCartDetails, getCartItemDetails } from '@/shared/lib';
+
 import { PizzaSize, PizzaType } from '@/shared/constants/pizza';
-import { assert } from 'console';
 import Image from 'next/image';
 import { Title } from './title';
 import clsx from 'clsx';
+import { useCart } from '@/shared/hooks';
+import { getCartItemDetails } from '@/shared/lib';
 
 interface Props {
     className?: string;
 }
 
 export const CartDrawer: FC<PropsWithChildren<Props>> = ({ className, children }) => {
-    const [totalAmount, items, fetchCartItems, updateItemQuantity, removeCartItem] = useCartStore(state =>
-        [
-            state.totalAmount,
-            state.items,
-            state.fetchCartItems,
-            state.updateItemQuantity,
-            state.removeCartItem,
-        ])
+    const {
+        totalAmount,
+        items,
+        updateItemQuantity,
+        removeCartItem,
+    } = useCart()
 
     const onClickCountButton = async (id: number, quantity: number, type: 'plus' | 'minus') => {
         const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1
         await updateItemQuantity(id, newQuantity)
     }
 
-    useEffect(() => {
-        fetchCartItems()
-    }, [])
+    const [redirecting, setRedirecting] = useState(false)
 
 
     return (
@@ -96,10 +92,10 @@ export const CartDrawer: FC<PropsWithChildren<Props>> = ({ className, children }
                                         <span>{totalAmount} R</span>
                                     </div>
 
-                                    <Link href='/cart' >
+                                    <Link href='/checkout' >
                                         <Button
-                                            //  onClick={()=> setRedirecting(true)}
-                                            // loading = {loading || redirecting}
+                                            onClick={() => setRedirecting(true)}
+                                            loading={redirecting}
                                             type='submit'
                                             className='w-full h-12 text-base'
                                         >
