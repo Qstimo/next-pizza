@@ -3,7 +3,7 @@ import React, { FC, ReactNode } from 'react'
 
 interface IProps {
     title?: ReactNode
-    value?: string | number
+    value?: string | number | ReactNode
     className?: string
 }
 
@@ -15,7 +15,7 @@ export const CartSidebarDetails: FC<IProps> = ({ title, value, className }) => {
                 <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
             </span>
 
-            <span className="font-bold text-lg">{value} ₽</span>
+            <span className="font-bold text-lg flex ">{value} ₽</span>
         </div>
     )
 }

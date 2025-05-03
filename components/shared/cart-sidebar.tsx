@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { ArrowRight, Package, Percent, Truck } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { CartSidebarDetails } from './cart-sidebar-details';
+import { Skeleton } from '../ui';
 
 interface Props {
   totalAmount: number;
@@ -12,6 +13,7 @@ interface Props {
   deliveryPrice: number;
   className?: string;
   submitting?: boolean;
+  loading: boolean
 }
 
 export const CartSidebar: React.FC<Props> = ({
@@ -21,6 +23,7 @@ export const CartSidebar: React.FC<Props> = ({
   deliveryPrice,
   className,
   submitting,
+  loading
 }) => {
 
   const details = [
@@ -53,13 +56,14 @@ export const CartSidebar: React.FC<Props> = ({
     <WhiteBlock className={cn('p-6 sticky top-4', className)}>
       <div className="flex flex-col gap-1">
         <span className="text-xl">Итого:</span>
-        <span className="text-4xl font-extrabold">{totalPrice} ₽</span>
+        {loading ? <Skeleton className='w-48 h-11' /> : <span className="text-4xl font-extrabold">{totalPrice} ₽</span>}
+
       </div>
 
 
       {details.map((item, i) => <CartSidebarDetails
         key={i} title={item.title}
-        value={item.value}
+        value={loading ? <Skeleton className='w-24 h-6 mr-1 rounded-[6px]' /> : item.value}
       />)}
 
 

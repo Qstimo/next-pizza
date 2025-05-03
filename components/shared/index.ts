@@ -21,6 +21,7 @@ export { CartSidebarDetails } from './cart-sidebar-details'
 export { CheckoutItem } from './checkout-item'
 export { CheckoutItemSkeleton } from './skeletons/cart-item-skeleton'
 export { FormInput } from './form-components/form-input'
+export { AdressInput } from './address-input'
 
 
 

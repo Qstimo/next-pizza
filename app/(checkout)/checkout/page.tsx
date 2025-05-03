@@ -8,16 +8,23 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CheckoutCart } from "@/components/shared/checkout/checkout-cart";
 import { CheckoutAddressForm, CheckoutPersonalForm } from "@/components/shared/checkout";
 import { checkoutFormSchema, TCheckoutFormValues } from "@/components/shared/schemas/checkout-form-schema";
+import { cn } from "@/shared/lib/utils";
+import { createOrder } from "@/app/api/actions";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 
 const VAT = 15
 const DELIVERY_PRICE = 250
+
 export default function CheckoutPage() {
+    const [submitting, setSubmitting] = useState(false)
     const {
         totalAmount,
         items,
         updateItemQuantity,
         removeCartItem,
+        loading
     } = useCart()
 
 
@@ -38,8 +45,23 @@ export default function CheckoutPage() {
     const vatPrice = (totalAmount * VAT) / 100
     const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice
 
-    const onSubmit:SubmitHandler<TCheckoutFormValues> = (data)=>{
+    const onSubmit: SubmitHandler<TCheckoutFormValues> = async (data) => {
 
+        try {
+            setSubmitting(true)
+            const url = await createOrder(data)
+
+            toast.success('Заказ успешно оформлен! Переход на страницу оплаты')
+
+            if (url) {
+                location.href = url
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error('Не удалось создать заказ')
+        } finally{
+            setSubmitting(false)
+        }
     }
 
     return <Container className="mt-10">
@@ -54,11 +76,12 @@ export default function CheckoutPage() {
                             items={items}
                             updateItemQuantity={updateItemQuantity}
                             removeCartItem={removeCartItem}
+                            loading={loading}
                         />
 
-                        <CheckoutPersonalForm />
+                        <CheckoutPersonalForm className={cn({ 'opacity-40 pointer-events-none': loading })} />
 
-                        <CheckoutAddressForm />
+                        <CheckoutAddressForm className={cn({ 'opacity-40 pointer-events-none': loading })} />
 
 
                     </div>
@@ -69,7 +92,8 @@ export default function CheckoutPage() {
                             vatPrice={vatPrice}
                             totalPrice={totalPrice}
                             deliveryPrice={DELIVERY_PRICE}
-                            submitting={false}
+                            // submitting={submitting}
+                            loading={loading || submitting}
                         />
                     </div>
                 </div>

@@ -8,13 +8,13 @@ import { ICartStateItem } from '@/shared/lib/get-cart-details';
 import { FormInput } from '../form-components/form-input';
 
 interface Props {
-    
+    className?:string
 }
 
-export const CheckoutPersonalForm: React.FC<Props> = ({  }) => {
+export const CheckoutPersonalForm: React.FC<Props> = ({ className }) => {
 
     return (
-        <WhiteBlock title="2. Персональные данные ">
+        <WhiteBlock title="2. Персональные данные " className={className} >
         <div className="grid grid-cols-2 gap-5">
             <FormInput name="firstName" className="text-base" placeholder="Имя" />
             <FormInput name="lastName" className="text-base" placeholder="Фамилия" />
