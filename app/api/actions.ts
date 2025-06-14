@@ -37,6 +37,7 @@ export async function createOrder(data: TCheckoutFormValues) {
                 token: cartToken
             }
         });
+        console.log(userCart)
 
         if (!userCart?.totalAmount) {
             return;
@@ -62,6 +63,7 @@ export async function createOrder(data: TCheckoutFormValues) {
             },
         });
 
+        console.log(order)
 
         await prisma.cart.update({
             where: {
@@ -85,6 +87,7 @@ export async function createOrder(data: TCheckoutFormValues) {
             amount: order.totalAmount,
             description: `Заказ #${order.id}`,
         });
+        console.log(paymentData)
 
         if (!paymentData) {
             throw new Error('Payment data not found');
@@ -101,7 +104,7 @@ export async function createOrder(data: TCheckoutFormValues) {
 
         const orderLink = paymentData.confirmation.confirmation_url
 
-        await sendEmail(data.email, `Next Pizza / Оплатите заказ #${order?.id}`, PayOrderTemplate(
+        await sendEmail('vadtolpekin@gmail.com', `Next Pizza / Оплатите заказ #${order?.id}`, PayOrderTemplate(
             { orderId: order.id, orderLink, totalAmount: order.totalAmount }
         ));
 

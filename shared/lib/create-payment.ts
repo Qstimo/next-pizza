@@ -20,11 +20,12 @@ export const createPayment = async (details: any) => {
     },
         {
             auth: {
-                username: process.env.YOOKASSA_API_KEY as string,
-                password: ''
+                username: process.env.YOOKASSA_STORE_ID as string,
+                password:  process.env.YOOKASSA_API_KEY as string
             },
             headers: {
-                'Idempotence-Key': Math.random().toString(36).substring(7)
+                'Idempotence-Key': Math.random().toString(36).substring(7),
+                'Content-Type': 'application/json'
             }
         }
     )
